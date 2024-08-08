@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table with Print and Copy Buttons</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+        .buttons {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="buttons">
+    <button onclick="printTable()">Print</button>
+    <button onclick="copyTable()">Copy</button>
+</div>
+
+<table id="dataTable">
+    <thead>
+        <tr>
+            <th>Serial</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>١</td>
+            <td>رقم الشركة</td>
+        </tr>
+        <tr>
+            <td>٢</td>
+            <td>دفع ٣ شهور ٢٨٠٠ يورو</td>
+        </tr>
+        <tr>
+            <td>٣</td>
+            <td>الدخل الشهر و الرصيد البنكي</td>
+        </tr>
+    </tbody>
+</table>
+
+<script>
+    function printTable() {
+        var printContents = document.getElementById('dataTable').outerHTML;
+        var originalContents = document.body.innerHTML;
+        document.body.innerHTML = printContents;
+        window.print();
+        document.body.innerHTML = originalContents;
+    }
+
+    function copyTable() {
+        var range = document.createRange();
+        range.selectNode(document.getElementById("dataTable"));
+        window.getSelection().removeAllRanges(); 
+        window.getSelection().addRange(range);
+        document.execCommand("copy");
+        window.getSelection().removeAllRanges();
+        alert("Table copied to clipboard");
+    }
+</script>
+
+</body>
+</html>
